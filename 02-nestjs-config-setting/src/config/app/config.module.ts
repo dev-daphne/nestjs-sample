@@ -13,7 +13,7 @@ import { AppConfigService } from './config.service';
           : `${process.env.APP_ENV}.env`,
       load: [configuration],
       validationSchema: Joi.object({
-        APP_ENV: Joi.string().valid('dev', 'prod', 'test', 'local'),
+        // APP_ENV: Joi.string().valid('dev', 'prod', 'test', 'local'),
         APP_NAME: Joi.string().default('MyApp'),
         APP_URL: Joi.string().default('http://localhost'),
         APP_PORT: Joi.number().default(3000),

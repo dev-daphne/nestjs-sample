@@ -2,6 +2,7 @@ import { Controller, Get } from '@nestjs/common';
 import {
   HealthCheck,
   HealthCheckService,
+  HttpHealthIndicator,
   TypeOrmHealthIndicator,
 } from '@nestjs/terminus';
 import { InjectConnection } from '@nestjs/typeorm';
@@ -14,6 +15,7 @@ export class HealthController {
     private readonly configService: AppConfigService,
     private readonly health: HealthCheckService,
     private readonly database: TypeOrmHealthIndicator,
+    private readonly http: HttpHealthIndicator,
 
     @InjectConnection()
     private databaseConnection: Connection,
@@ -30,6 +32,9 @@ export class HealthController {
           }),
       ]);
 
+      const pingCheckResult = await this.health.check([
+        () => this.http.pingCheck('test', 'http://naver.com'),
+      ]);
       return {
         status: 'Success',
         app_name: this.configService.name,
@@ -37,6 +42,7 @@ export class HealthController {
         app_env: this.configService.env,
         current_date: new Date().toLocaleString(),
         database_connect_result: dbConnectResult,
+        ping_check_result: pingCheckResult,
       };
     } catch (error) {
       return {

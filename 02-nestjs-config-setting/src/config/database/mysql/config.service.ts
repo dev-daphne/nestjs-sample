@@ -8,6 +8,8 @@ export class MysqlConfigService implements TypeOrmOptionsFactory {
   constructor(private readonly configService: ConfigService) {}
 
   createTypeOrmOptions(): TypeOrmModuleOptions {
+    const a = this.configService.get<TypeOrmModuleOptions>('mysql');
+    console.log(a);
     return {
       name: this.configService.get<string>('mysql.name'),
       type: this.configService.get<'mysql'>('mysql.type'),
