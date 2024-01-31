@@ -17,9 +17,9 @@ export class RedisCacheService {
 
   /**
    * 캐시 생성
-   * @param key 저장할 값의 키
-   * @param value 저장할 값
-   * @param ttl 기본 값: 300(seconds)(5min)
+   * @property {key} 저장할 값의 키
+   * @property {value} 저장할 값
+   * @property {ttl} 기본 값: 300(seconds)(5min)
    */
   async set<T = unknown>({
     key,
