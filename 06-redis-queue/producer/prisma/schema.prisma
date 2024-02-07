@@ -1,0 +1,57 @@
+datasource db {
+  provider = "postgresql" 
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// 회원 테이블
+model User {
+  id       Int           @id @default(autoincrement())
+  name     String
+  email    String        @unique
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+  deletedAt DateTime?
+
+  // relations
+  // User --< Reservation
+  Reservation Reservation[]
+}
+
+// 이벤트 테이블
+model Event {
+  id         Int       @id @default(autoincrement())
+  name       String    @unique
+  date       DateTime
+  location   String
+  maxTickets Int
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  deletedAt  DateTime?
+
+  // relations
+  // Event --< Reservation
+  Reservation Reservation[]
+}
+
+// 예약 테이블
+model Reservation {
+  id         Int      @id @default(autoincrement())
+  eventId   Int
+  userId     Int
+  reservedAt DateTime
+  status     ReservationStatusType
+  // relations
+  // Reservation >-- User
+  user       User     @relation(fields: [userId], references: [id])
+  // Reservation >-- Event
+  event      Event    @relation(fields: [eventId], references: [id])
+}
+
+enum ReservationStatusType {
+  AVAILABLE 
+  RESERVED
+}
