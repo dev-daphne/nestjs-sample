@@ -1,4 +1,3 @@
-version: '3.8'
 services:
   redis:
     image: redis:latest
@@ -25,7 +24,7 @@ services:
       - redis
       - db
 
-  consumer1:
+  consumer:
     build:
       context: ./consumer
     container_name: consumer1
@@ -39,6 +38,16 @@ services:
     build:
       context: ./consumer
     container_name: consumer2
+    environment:
+      - NODE_ENV=dev
+    depends_on:
+      - redis
+      - db
+
+  consumer3:
+    build:
+      context: ./consumer
+    container_name: consumer3
     environment:
       - NODE_ENV=dev
     depends_on:

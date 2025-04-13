@@ -1,10 +1,8 @@
-import { BullModule } from '@nestjs/bull';
+import { BullModule } from '@nestjs/bullmq';
 import { Module } from '@nestjs/common';
-import { EventModule } from 'src/event/event.module';
 import { PrismaModule } from 'src/lib/prisma/prisma.module';
 import { RedisQueueModule } from 'src/lib/redis-queue/redis-queue.module';
 import { ReservationConsumer } from 'src/reservation/reservation.consumer';
-import { ReservationRepository } from 'src/reservation/reservation.repository';
 import { ReservationService } from 'src/reservation/reservation.service';
 
 @Module({
@@ -14,8 +12,7 @@ import { ReservationService } from 'src/reservation/reservation.service';
       name: 'reservation-queue',
     }),
     PrismaModule,
-    EventModule,
   ],
-  providers: [ReservationService, ReservationRepository, ReservationConsumer],
+  providers: [ReservationService, ReservationConsumer],
 })
 export class ReservationModule {}

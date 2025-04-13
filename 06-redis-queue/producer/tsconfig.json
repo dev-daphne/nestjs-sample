@@ -25,6 +25,9 @@
     "noUnusedParameters": true,
     "strictFunctionTypes": true,
     "strictNullChecks": true,
-    "useUnknownInCatchVariables": false
+    "useUnknownInCatchVariables": false,
+    "paths": {
+      "@prisma-client": ["./prisma/generated/client"]
+    }
   }
 }

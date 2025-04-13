@@ -1,10 +1,10 @@
-import { InjectQueue } from '@nestjs/bull';
+import { InjectQueue } from '@nestjs/bullmq';
 import {
   BadRequestException,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { Queue } from 'bull';
+import { Queue } from 'bullmq';
 import { ReservationRepository } from 'src/reservation/reservation.repository';
 
 @Injectable()
@@ -28,7 +28,7 @@ export class ReservationService {
   async reserveEvent(eventId: number, userId: number) {
     try {
       // 예약 요청을 큐에 적재
-      await this.reservationQueue.add(
+      const job = await this.reservationQueue.add(
         'reserveEvent',
         {
           userId,
@@ -39,6 +39,8 @@ export class ReservationService {
           removeOnFail: true, // 실패시 큐에서 제거
         },
       );
+
+      return job;
     } catch (error) {
       throw new BadRequestException();
     }

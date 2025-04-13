@@ -1,11 +1,10 @@
-# Hydrogen  Node.js 18.x Bilder
-FROM node:hydrogen-alpine AS builder
+FROM node:22-alpine AS builder
 
 # 앱 디렉터리 생성
 WORKDIR /build
 
 # 앱 의존성 설치 use pnpm
-COPY ./ ./
+COPY . .
 RUN npm install -g pnpm
 RUN pnpm install --frozen-lockfile
 
@@ -13,8 +12,7 @@ RUN pnpm install --frozen-lockfile
 RUN pnpm run build
 
 
-# Hydrogen  Node.js 18.x App
-FROM node:hydrogen-alpine AS app
+FROM node:22-alpine AS app
 
 # NODE_ENV 환경변수 설정
 ARG NODE_ENV

@@ -1,4 +1,4 @@
-import { BullModule } from '@nestjs/bull';
+import { BullModule } from '@nestjs/bullmq';
 import { Module } from '@nestjs/common';
 import { PrismaModule } from 'src/lib/prisma/prisma.module';
 import { RedisQueueModule } from 'src/lib/redis-queue/redis-queue.module';

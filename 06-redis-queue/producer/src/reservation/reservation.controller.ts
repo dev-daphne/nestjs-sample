@@ -32,6 +32,6 @@ export class ReservationController {
     @Param('userId', ParseIntPipe) userId: number,
     @Param('eventId', ParseIntPipe) eventId: number,
   ) {
-    return this.reservationService.reserveEvent(userId, eventId);
+    return this.reservationService.reserveEvent(eventId, userId);
   }
 }
