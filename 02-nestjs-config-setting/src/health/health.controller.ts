@@ -5,9 +5,9 @@ import {
   HttpHealthIndicator,
   TypeOrmHealthIndicator,
 } from '@nestjs/terminus';
-import { InjectConnection } from '@nestjs/typeorm';
+import { InjectDataSource } from '@nestjs/typeorm';
 import { AppConfigService } from 'src/config/app/config.service';
-import { Connection } from 'typeorm';
+import { DataSource } from 'typeorm';
 
 @Controller('health')
 export class HealthController {
@@ -17,8 +17,8 @@ export class HealthController {
     private readonly database: TypeOrmHealthIndicator,
     private readonly http: HttpHealthIndicator,
 
-    @InjectConnection()
-    private databaseConnection: Connection,
+    @InjectDataSource()
+    private dataSource: DataSource,
   ) {}
 
   @Get()
@@ -28,7 +28,7 @@ export class HealthController {
       const dbConnectResult = await this.health.check([
         () =>
           this.database.pingCheck('mysql', {
-            connection: this.databaseConnection,
+            connection: this.dataSource,
           }),
       ]);
 
