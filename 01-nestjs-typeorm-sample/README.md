@@ -20,11 +20,13 @@ NestJS에서 TypeORM을 사용한 데이터베이스 연동 기본 예제입니�
 
 ## 📁 프로젝트 구조
 
+```
 src/
 ├── app.module.ts # 메인 애플리케이션 모듈
 ├── main.ts # 애플리케이션 진입점
 ├── users/ # User
 └── posts/ # Post
+```
 
 ## 🚀 설치 및 실행
 
