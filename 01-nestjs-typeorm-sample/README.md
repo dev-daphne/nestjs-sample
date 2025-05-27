@@ -7,71 +7,63 @@ NestJS에서 TypeORM을 사용한 데이터베이스 연동 기본 예제입니�
 이 프로젝트는 NestJS와 TypeORM을 연동하여 기본적인 CRUD 작업을 수행하는 방법을 학습할 수 있습니다.
 
 ### 주요 학습 내용
+
 - TypeORM 설정 및 연동
 - Entity 정의 및 관계 설정
-- Repository 패턴 구현
-- 데이터베이스 마이그레이션
-- 환경별 데이터베이스 설정
 
 ## 🛠️ 기술 스택
 
 - **Framework**: NestJS
 - **ORM**: TypeORM
-- **Database**: PostgreSQL/MySQL
+- **Database**: MySQL
 - **Language**: TypeScript
 
 ## 📁 프로젝트 구조
+
 src/
 ├── app.module.ts # 메인 애플리케이션 모듈
 ├── main.ts # 애플리케이션 진입점
-├── entities/ # TypeORM 엔티티
-├── modules/ # 기능별 모듈
-└── config/ # 데이터베이스 설정
+├── users/ # User
+└── posts/ # Post
 
 ## 🚀 설치 및 실행
 
 ### 사전 요구사항
-- Node.js (v16 이상)
-- npm 또는 yarn
-- PostgreSQL 또는 MySQL
+
+- Node.js (v22 이상)
+- pnpm
+- MySQL
 
 ### 1. 의존성 설치
+
 ```bash
-npm install
+pnpm install
 ```
 
 ### 2. 환경 설정
+
 프로젝트 루트에 `.env` 파일을 생성하고 다음 내용을 설정하세요:
 
 ```env
 DB_HOST=localhost
-DB_PORT=5432
+DB_PORT=3306
 DB_USERNAME=your_username
 DB_PASSWORD=your_password
 DB_NAME=your_database_name
+
+SERVICE_PORT=4000
 ```
 
 ### 3. 데이터베이스 설정
-```bash
-# 데이터베이스 생성 (PostgreSQL 예시)
-createdb your_database_name
-```
+
+서버 실행 시 환경변수의 NODE_ENV 값이 `prod`가 아닌 경우 TypeORM에서 자동으로 마이그레이션하여 테이블 생성
 
 ### 4. 애플리케이션 실행
-```bash
-# 개발 모드
-npm run start:dev
 
-# 프로덕션 모드
-npm run start:prod
+```bash
+pnpm start:dev
 ```
 
 ## 📚 API 엔드포인트
 
-애플리케이션이 실행되면 `http://localhost:3000`에서 다음 엔드포인트를 사용할 수 있습니다:
-
-- `GET /users` - 모든 사용자 조회
-- `POST /users` - 새 사용자 생성
-- `GET /users/:id` - 특정 사용자 조회
-- `PUT /users/:id` - 사용자 정보 수정
-- `DELETE /users/:id` - 사용자 삭제
+애플리케이션이 실행되면 `http://localhost:4000/api`에서 Swagger docs를 확인할 수 있습니다.
