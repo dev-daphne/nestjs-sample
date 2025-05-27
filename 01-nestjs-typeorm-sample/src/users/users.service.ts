@@ -21,7 +21,7 @@ export class UsersService {
 
   async findOne(id: number) {
     try {
-      const user = await this.users.findOne({ id });
+      const user = await this.users.findOne({ where: { id } });
 
       if (!user) {
         return { message: 'not found user' };
@@ -34,7 +34,7 @@ export class UsersService {
 
   async update(id: number, updateUserDto: UpdateUserDto) {
     try {
-      const user = await this.users.findOne({ id });
+      const user = await this.users.findOne({ where: { id } });
 
       if (!user) {
         return { message: 'not found user' };
@@ -52,7 +52,7 @@ export class UsersService {
 
   async remove(id: number) {
     try {
-      const user = await this.users.findOne({ id });
+      const user = await this.users.findOne({ where: { id } });
 
       if (!user) {
         return { message: 'not found user' };

@@ -16,7 +16,7 @@ export class PostsService {
   async createPost(createPostDto: CreatePostDto): Promise<CreatePostOutput> {
     try {
       const { title, content, author_id } = createPostDto;
-      const user = await this.users.findOne({ id: author_id });
+      const user = await this.users.findOne({ where: { id: author_id } });
 
       if (!user) {
         return { message: 'not found user' };
@@ -40,7 +40,7 @@ export class PostsService {
 
   async findOne(id: number) {
     try {
-      const post = await this.posts.findOne({ id });
+      const post = await this.posts.findOne({ where: { id } });
 
       if (!post) {
         return { message: 'not found post' };
@@ -53,7 +53,7 @@ export class PostsService {
 
   async update(id: number, updatePostDto: UpdatePostDto) {
     try {
-      const post = await this.posts.findOne({ id });
+      const post = await this.posts.findOne({ where: { id } });
 
       if (!post) {
         return { message: 'not found post' };
@@ -71,7 +71,7 @@ export class PostsService {
 
   async remove(id: number) {
     try {
-      const post = await this.posts.findOne({ id });
+      const post = await this.posts.findOne({ where: { id } });
 
       if (!post) {
         return { message: 'not found post' };
