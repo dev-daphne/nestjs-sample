@@ -9,7 +9,6 @@ export class MysqlConfigService implements TypeOrmOptionsFactory {
 
   createTypeOrmOptions(): TypeOrmModuleOptions {
     const a = this.configService.get<TypeOrmModuleOptions>('mysql');
-    console.log(a);
     return {
       name: this.configService.get<string>('mysql.name'),
       type: this.configService.get<'mysql'>('mysql.type'),

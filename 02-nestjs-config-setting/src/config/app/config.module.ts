@@ -8,14 +8,12 @@ import { AppConfigService } from './config.service';
   imports: [
     ConfigModule.forRoot({
       envFilePath:
-        process.env.APP_ENV === 'local' || process.env.APP_ENV === undefined
+        process.env.APP_ENV === 'prod' || process.env.APP_ENV === undefined
           ? '.env'
           : `${process.env.APP_ENV}.env`,
       load: [configuration],
       validationSchema: Joi.object({
-        // APP_ENV: Joi.string().valid('dev', 'prod', 'test', 'local'),
         APP_NAME: Joi.string().default('MyApp'),
-        APP_URL: Joi.string().default('http://localhost'),
         APP_PORT: Joi.number().default(3000),
       }),
     }),

@@ -12,7 +12,7 @@ export default registerAs(
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
     entities: [],
-    synchronize: false,
+    synchronize: process.env.APP_ENV === 'local',
     logging: process.env.APP_ENV === 'local',
     // timezone: '+09:00',
   }),
