@@ -30,6 +30,7 @@ async function bootstrap() {
 
   if (environment !== 'prod') {
     logger.log(`NODE_ENV:${environment} http://localhost:${servicePort}`);
+    logger.log(`swagger docs: http://localhost:${servicePort}/api`);
   }
 }
 bootstrap();
