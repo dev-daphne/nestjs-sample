@@ -15,9 +15,10 @@ export class ReservationService {
   ) {}
 
   /** 예약 조회 */
-  async getReservationInfo(reservationId: number) {
+  async getReservationInfo(eventId: number, userId: number) {
     const reservation = await this.reservationRepository.getReservationInfo(
-      reservationId,
+      eventId,
+      userId,
     );
     if (!reservation) throw new NotFoundException('존재하지 않는 예약입니다.');
 
