@@ -1,4 +1,4 @@
-# 04 JWT Sample
+# 04 NestJS JWT
 
 NestJS에서 JWT 인증을 구현하는 기본 예제입니다.
 
@@ -63,10 +63,10 @@ pnpm install
 
 ### 2. 환경 설정
 
-환경변수 설정을 위해 `environments/.local.env` 파일이 이미 준비되어 있습니다:
+환경변수 설정을 위해 `/environments/.env.local` 파일이 이미 준비되어 있습니다:
 
 ```env
-APP_PORT=3000
+APP_PORT=4000
 JWT_SECRET_KEY='test-key'
 JWT_EXPIRES_IN=3600s
 ```
