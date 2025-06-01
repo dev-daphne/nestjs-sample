@@ -9,11 +9,11 @@ export class JwtAccessTokenStrategy extends PassportStrategy(
   Strategy,
   'jwtAccessToken',
 ) {
-  constructor(private readonly configService: ConfigService) {
+  constructor(protected readonly configService: ConfigService) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       ignoreExpiration: false,
-      secretOrKey: configService.get<string>('JWT_SECRET_KEY'),
+      secretOrKey: configService.getOrThrow<string>('JWT_SECRET_KEY'),
     });
   }
 
