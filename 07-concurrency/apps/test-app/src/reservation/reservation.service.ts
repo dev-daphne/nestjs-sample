@@ -1,16 +1,18 @@
 import {
-  // BadRequestException,
+  BadRequestException,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
 import { ReservationRepository } from './reservation.repository';
-// import { PrismaService } from '@lib/prisma';
+import { PrismaService } from '@lib/prisma';
+import { EventService } from '../event/event.service';
 
 @Injectable()
 export class ReservationService {
   constructor(
     private readonly reservationRepository: ReservationRepository,
-    // private readonly prisma: PrismaService,
+    private readonly eventService: EventService,
+    private readonly prisma: PrismaService,
   ) {}
 
   /** 예약 조회 */
@@ -23,15 +25,15 @@ export class ReservationService {
   }
 
   /** 예약 요청 */
-  reserveEvent(eventId: number, userId: number) {
-    //   return this.prisma.$transaction(async () => {
-    //     const event = await this.eventRepository.findById(eventId);
-    //     if (!event) throw new NotFoundException();
-    //     const count = await this.reservationRepository.countByEventId(eventId);
-    //     if (count >= event.maxTickets) throw new Error('매진');
-    //     return this.reservationRepository.createReservation(eventId, userId);
-    //   });
-    console.log(eventId, userId);
-    return true;
+  async reserveEvent(eventId: number, userId: number) {
+    await this.prisma.$transaction(async () => {
+      const event = await this.eventService.getEventInfo(eventId);
+
+      const count = await this.reservationRepository.countByEventId(eventId);
+      if (count >= event.maxTickets)
+        throw new BadRequestException('매진되었습니다.');
+
+      return this.reservationRepository.reserveEvent(eventId, userId);
+    });
   }
 }

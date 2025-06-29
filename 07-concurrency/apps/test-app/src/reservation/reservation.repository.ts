@@ -48,4 +48,8 @@ export class ReservationRepository {
 
     return event.maxTickets > currentReservations;
   }
+
+  async countByEventId(eventId: number) {
+    return this.prisma.reservation.count({ where: { eventId } });
+  }
 }

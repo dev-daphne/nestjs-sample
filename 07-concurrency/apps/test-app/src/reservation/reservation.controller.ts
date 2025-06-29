@@ -28,7 +28,7 @@ export class ReservationController {
     summary: '예약 요청',
     description: '예약을 요청합니다.',
   })
-  requestReservation(
+  async requestReservation(
     @Param('userId', ParseIntPipe) userId: number,
     @Param('eventId', ParseIntPipe) eventId: number,
   ) {

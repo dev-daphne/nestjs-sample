@@ -28,7 +28,7 @@ const EVENT_ID = 1; // 이벤트 ID
 export default function () {
   const userId = __VU;
 
-  const url = `http://localhost:8080/reservation/${EVENT_ID}/${userId}`;
+  const url = `http://localhost:3001/reservation/${EVENT_ID}/${userId}`;
 
   const response = http.post(url);
 
