@@ -117,8 +117,8 @@ pnpm start:local
 동시성 테스트 전에 더미 사용자 1만명을 생성해둔다.
 
 ```bash
-# user-sign-up.ts 스크립트로 1만 명의 사용자 생성
-npx ts-node user-sign-up.ts
+# bulk-insert-users-raw.ts 스크립트로 100만 명의 사용자 생성
+npx ts-node bulk-insert-users-raw.ts
 ```
 
 ### 2. k6 부하 테스트

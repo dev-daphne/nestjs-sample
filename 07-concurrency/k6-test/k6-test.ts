@@ -8,18 +8,15 @@ const failedBookings = new Counter('failed_bookings');
 export const options = {
   scenarios: {
     stress_test: {
-      executor: 'ramping-arrival-rate',
-      preAllocatedVUs: 10000,
-      timeUnit: '1s',
-      stages: [
-        { duration: '1s', target: 0 }, // 준비
-        { duration: '1s', target: 10000 }, // 순간적으로 10000개 요청
-        { duration: '1s', target: 0 }, // 마무리
-      ],
+      executor: 'shared-iterations',
+      vus: 10000,
+      iterations: 10000,
+      maxDuration: '30s',
     },
   },
   thresholds: {
-    successful_bookings: ['count>0'], // 성공적인 예약 수 추적
+    successful_bookings: ['count==100'], // 정확히 100개만 성공해야 함
+    http_req_duration: ['p(95)<2000'], // 95%의 요청이 2초 내 완료
   },
 };
 
@@ -44,4 +41,21 @@ export default function () {
       return success;
     },
   });
+}
+
+export function handleSummary(data: any) {
+  const successful = Number(data.metrics.successful_bookings.values.count) || 0;
+  const failed = Number(data.metrics.failed_bookings.values.count) || 0;
+  const total = successful + failed;
+
+  console.log(`\n========== 테스트 결과 ==========`);
+  console.log(`총 요청 수: ${total}`);
+  console.log(`성공한 예약: ${successful}`);
+  console.log(`실패한 예약: ${failed}`);
+  console.log(`성공률: ${((successful / total) * 100).toFixed(2)}%`);
+  console.log(`================================\n`);
+
+  return {
+    stdout: JSON.stringify(data, null, 2),
+  };
 }

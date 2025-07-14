@@ -21,7 +21,9 @@
     "prisma:generate": "npx prisma generate",
     "prisma:push:local": "dotenv -e environments/.env.local -- npx prisma db push",
     "prisma:migrate:local": "dotenv -e environments/.env.local -- npx prisma migrate dev",
-    "prisma:deploy:prod": "dotenv -e environments/.env.production -- npx prisma migrate deploy"
+    "prisma:deploy:prod": "dotenv -e environments/.env.production -- npx prisma migrate deploy",
+    "bulk-insert": "ts-node bulk-insert-users.ts",
+    "bulk-insert-raw": "ts-node bulk-insert-users-raw.ts"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",
@@ -33,6 +35,7 @@
     "axios": "^1.10.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
+    "dotenv": "^17.2.0",
     "k6": "^0.0.0",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1"
